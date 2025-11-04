@@ -23,6 +23,12 @@ Related files:
 Related files:
 - `image_enhancement_suite.py`
 
+### image_enhancement.docx coverage details
+- Negative, Log, Power-law (Gamma), Histogram Equalization, Contrast Stretching
+- Mean and Gaussian filtering, Laplacian edges, Sobel magnitude with normalization
+- Script function: `image_enhancement_suite(image_path, resize_to, gamma, show, save_grid)`
+  - Use `show=True` to view a 3×4 grid; set `save_grid=True` to export to `enhancement_grid.png`
+
 ---
 
 ### How to run
