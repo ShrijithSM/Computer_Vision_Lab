@@ -1,5 +1,12 @@
+import os
 import cv2
 import numpy as np
+import matplotlib
+
+# Switch to a non-interactive backend automatically when no display is available
+if not os.environ.get("DISPLAY") and os.name != "nt":
+    matplotlib.use("Agg")  # headless environments (e.g., servers, WSL without X)
+
 import matplotlib.pyplot as plt
 
 
@@ -48,17 +55,26 @@ def affine_warp(image_path, src_points=None, dst_points=None, show=True, save_ou
 
     # Show if requested
     if show:
-        plt.subplot(1, 2, 1)
-        plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-        plt.title('Original')
-        plt.axis('off')
+        # When using a non-interactive backend, save a figure instead of showing it
+        fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+        axes[0].imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+        axes[0].set_title('Original')
+        axes[0].axis('off')
 
-        plt.subplot(1, 2, 2)
-        plt.imshow(cv2.cvtColor(warped, cv2.COLOR_BGR2RGB))
-        plt.title('Affine Warped')
-        plt.axis('off')
+        axes[1].imshow(cv2.cvtColor(warped, cv2.COLOR_BGR2RGB))
+        axes[1].set_title('Affine Warped')
+        axes[1].axis('off')
+
         plt.tight_layout()
-        plt.show()
+
+        if matplotlib.get_backend().lower().startswith('agg'):
+            # Headless: write a figure file next to output image for convenience
+            fig_path = os.path.splitext(output_path)[0] + "_figure.png"
+            plt.savefig(fig_path, dpi=150)
+            print(f"No GUI backend detected; saved visualization to: {fig_path}")
+            plt.close(fig)
+        else:
+            plt.show()
 
     return warped
 
