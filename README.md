@@ -57,6 +57,7 @@ Related files:
 - Python 3.8+
 - OpenCV (cv2), NumPy, Matplotlib, scikit-image (for HOG), imageio (optional for GIF in morphing)
 
+
 ### Notes
 - Example image paths in the original docs (e.g., `E:/JAIN/...`, `D:/Sugumar/...`) are kept in comments or defaults; update them to local paths.
 - Contributions welcome: feel free to open issues/PRs for additional lab tasks or advanced segmentation pipelines (boundary melting, watershed, quadtree split/merge).
